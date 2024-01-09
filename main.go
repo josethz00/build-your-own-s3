@@ -21,5 +21,13 @@ func main() {
 		})
 	})
 
+	app.Get("/bucket/:id", func(c fiber.Ctx) error {
+		bucketID := c.Params("id")
+		return c.Status(200).JSON(fiber.Map{
+			"message": "BUCKET DETAILS",
+			"id":      bucketID,
+		})
+	})
+
 	app.Listen(":8778")
 }
