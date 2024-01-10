@@ -7,3 +7,7 @@ func CheckAccessKey(accessKey string) bool {
 func CheckSecretAccessKey(secretAccessKey string) bool {
 	return secretAccessKey == "123456"
 }
+
+func CheckApiCredentials(accessKey, secretAccessKey string) bool {
+	return CheckAccessKey(accessKey) && CheckSecretAccessKey(secretAccessKey)
+}
