@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 
+	"github.com/bwmarrin/snowflake"
 	"github.com/gofiber/fiber/v2"
 	"github.com/josethz00/build-your-own-s3/utils"
 )
@@ -14,6 +15,12 @@ type CreateBucketRequest struct {
 
 func main() {
 	app := fiber.New()
+
+	node, err := snowflake.NewNode(1)
+	if err != nil {
+		fmt.Println(err)
+		return
+	}
 
 	app.Use(func(c *fiber.Ctx) error {
 		accessKey := c.Get("x-access-key")
@@ -49,7 +56,8 @@ func main() {
 		fmt.Println("bucket = ", bucket)
 
 		return c.Status(201).JSON(fiber.Map{
-			"message": "BUCKET CREATED SUCCESFULLY",
+			"message":  "BUCKET CREATED SUCCESFULLY",
+			"bucketID": node.Generate().String(),
 		})
 	})
 
@@ -67,8 +75,9 @@ func main() {
 		})
 	})
 
-	err := app.Listen(":8778")
-	if err != nil {
-		panic(err)
+	startappErr := app.Listen(":8778")
+
+	if startappErr != nil {
+		panic(startappErr)
 	}
 }
