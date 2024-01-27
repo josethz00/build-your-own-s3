@@ -4,11 +4,10 @@ import (
 	"bufio"
 	"log"
 	"os"
-	"path"
 )
 
 func CheckAccessKey(accessKey string) bool {
-	f, err := os.Open(path.Join("..", "accesskeys.txt"))
+	f, err := os.Open("accesskeys.txt")
 
 	if err != nil {
 		log.Fatal(err)
@@ -28,7 +27,7 @@ func CheckAccessKey(accessKey string) bool {
 }
 
 func CheckSecretAccessKey(secretAccessKey string) bool {
-	f, err := os.Open(path.Join("..", "secretaccesskeys.txt"))
+	f, err := os.Open("secretaccesskeys.txt")
 
 	if err != nil {
 		log.Fatal(err)
