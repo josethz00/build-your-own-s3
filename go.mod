@@ -4,7 +4,7 @@ go 1.18
 
 require (
 	github.com/andybalholm/brotli v1.0.6 // indirect
-	github.com/gofiber/fiber/v3 v3.0.0-20240106164914-960b65258767 // indirect
+	github.com/gofiber/fiber/v2 v2.35.0 // indirect
 	github.com/gofiber/utils/v2 v2.0.0-beta.3 // indirect
 	github.com/google/uuid v1.4.0 // indirect
 	github.com/klauspost/compress v1.17.2 // indirect
