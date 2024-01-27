@@ -5,6 +5,11 @@ import (
 	"github.com/josethz00/build-your-own-s3/utils"
 )
 
+type CreateBucketRequest struct {
+	Name   string `json:"name"` // this json:"name" is called a tag and it's used to map the json key to the struct field
+	Public bool   `json:"public"`
+}
+
 func main() {
 	app := fiber.New()
 
@@ -32,6 +37,9 @@ func main() {
 	})
 
 	app.Post("/bucket", func(c fiber.Ctx) error {
+		bucketData := c.Body()
+		bucketName := bucketData["name"].(string)
+
 		return c.Status(201).JSON(fiber.Map{
 			"message": "BUCKET CREATED SUCCESFULLY",
 		})
