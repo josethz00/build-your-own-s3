@@ -1,7 +1,9 @@
 package main
 
 import (
-	"github.com/gofiber/fiber/v3"
+	"fmt"
+
+	"github.com/gofiber/fiber/v2"
 	"github.com/josethz00/build-your-own-s3/utils"
 )
 
@@ -32,26 +34,30 @@ func main() {
 		})
 	})
 
-	app.Get("/", func(c fiber.Ctx) error {
+	app.Get("/", func(c *fiber.Ctx) error {
 		return c.SendString("Hello, World 👋!")
 	})
 
-	app.Post("/bucket", func(c fiber.Ctx) error {
-		bucketData := c.Body()
-		bucketName := bucketData["name"].(string)
+	app.Post("/bucket", func(c *fiber.Ctx) error {
+		bucket := new(CreateBucketRequest)
+
+		if err := c.BodyParser(bucket); err != nil {
+			fmt.Println("error = ", err)
+			return c.SendStatus(200)
+		}
 
 		return c.Status(201).JSON(fiber.Map{
 			"message": "BUCKET CREATED SUCCESFULLY",
 		})
 	})
 
-	app.Get("/buckets", func(c fiber.Ctx) error {
+	app.Get("/buckets", func(c *fiber.Ctx) error {
 		return c.Status(200).JSON(fiber.Map{
 			"message": "BUCKETS LIST",
 		})
 	})
 
-	app.Get("/bucket/:id", func(c fiber.Ctx) error {
+	app.Get("/bucket/:id", func(c *fiber.Ctx) error {
 		bucketID := c.Params("id")
 		return c.Status(200).JSON(fiber.Map{
 			"message": "BUCKET DETAILS",
