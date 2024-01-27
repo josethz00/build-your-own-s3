@@ -1,0 +1,57 @@
+version: "3.7"
+
+services:
+
+  cockroach-1:
+    image: cockroachdb/cockroach:v21.2.0
+    ports:
+      - 8080:8080
+      - 26257:26257
+    networks:
+      - cockroach-net
+    volumes:
+      - type: volume
+        source: cockroach-1-data
+        target: /cockroach/cockroach-data
+    container_name: cockroach_1_server
+    command:
+      - start
+      - --insecure
+      - --join=cockroach-1,cockroach-2,cockroach-3
+
+  cockroach-2:
+    image: cockroachdb/cockroach:v21.2.0
+    networks:
+      - cockroach-net
+    volumes:
+      - type: volume
+        source: cockroach-2-data
+        target: /cockroach/cockroach-data
+    container_name: cockroach_2_server
+    command:
+      - start
+      - --insecure
+      - --join=cockroach-1,cockroach-2,cockroach-3
+
+  cockroach-3:
+    image: cockroachdb/cockroach:v21.2.0
+    networks:
+      - cockroach-net
+    volumes:
+      - type: volume
+        source: cockroach-3-data
+        target: /cockroach/cockroach-data
+    container_name: cockroach_3_server
+    command:
+      - start
+      - --insecure
+      - --join=cockroach-1,cockroach-2,cockroach-3
+
+volumes:
+  cockroach-1-data:
+  cockroach-2-data:
+  cockroach-3-data:
+
+networks:
+  cockroach-net:
+    driver: bridge
