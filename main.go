@@ -43,8 +43,10 @@ func main() {
 
 		if err := c.BodyParser(bucket); err != nil {
 			fmt.Println("error = ", err)
-			return c.SendStatus(200)
+			return c.SendStatus(500)
 		}
+
+		fmt.Println("bucket = ", bucket)
 
 		return c.Status(201).JSON(fiber.Map{
 			"message": "BUCKET CREATED SUCCESFULLY",
