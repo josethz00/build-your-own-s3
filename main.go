@@ -15,7 +15,7 @@ type CreateBucketRequest struct {
 func main() {
 	app := fiber.New()
 
-	app.Use(func(c fiber.Ctx) error {
+	app.Use(func(c *fiber.Ctx) error {
 		accessKey := c.Get("x-access-key")
 		secretAccessKey := c.Get("x-secret-access-key")
 
@@ -67,5 +67,8 @@ func main() {
 		})
 	})
 
-	app.Listen(":8778")
+	err := app.Listen(":8778")
+	if err != nil {
+		panic(err)
+	}
 }
