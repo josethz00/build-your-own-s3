@@ -5,7 +5,7 @@ services:
   cockroach-1:
     image: cockroachdb/cockroach:v21.2.0
     ports:
-      - 8080:8080
+      - 8089:8080
       - 26257:26257
     networks:
       - cockroach-net
