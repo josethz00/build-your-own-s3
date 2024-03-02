@@ -14,7 +14,7 @@ SELECT id, name, public, description, created_at, updated_at FROM buckets
 `
 
 func (q *Queries) ListBuckets(ctx context.Context) ([]Bucket, error) {
-	rows, err := q.db.QueryContext(ctx, listBuckets)
+	rows, err := q.db.Query(ctx, listBuckets)
 	if err != nil {
 		return nil, err
 	}
@@ -33,9 +33,6 @@ func (q *Queries) ListBuckets(ctx context.Context) ([]Bucket, error) {
 			return nil, err
 		}
 		items = append(items, i)
-	}
-	if err := rows.Close(); err != nil {
-		return nil, err
 	}
 	if err := rows.Err(); err != nil {
 		return nil, err

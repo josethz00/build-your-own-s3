@@ -5,25 +5,24 @@
 package db
 
 import (
-	"database/sql"
-	"time"
+	"github.com/jackc/pgx/v5/pgtype"
 )
 
 type Bucket struct {
-	ID          int64          `json:"id"`
-	Name        string         `json:"name"`
-	Public      bool           `json:"public"`
-	Description sql.NullString `json:"description"`
-	CreatedAt   time.Time      `json:"created_at"`
-	UpdatedAt   time.Time      `json:"updated_at"`
+	ID          int64
+	Name        string
+	Public      bool
+	Description pgtype.Text
+	CreatedAt   pgtype.Timestamp
+	UpdatedAt   pgtype.Timestamp
 }
 
 type File struct {
-	ID        int64     `json:"id"`
-	BucketID  int64     `json:"bucket_id"`
-	Name      string    `json:"name"`
-	Size      int64     `json:"size"`
-	MimeType  string    `json:"mime_type"`
-	CreatedAt time.Time `json:"created_at"`
-	UpdatedAt time.Time `json:"updated_at"`
+	ID        int64
+	BucketID  int64
+	Name      string
+	Size      int64
+	MimeType  string
+	CreatedAt pgtype.Timestamp
+	UpdatedAt pgtype.Timestamp
 }
