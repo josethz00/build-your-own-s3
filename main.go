@@ -1,10 +1,14 @@
 package main
 
 import (
+	"context"
 	"fmt"
 
 	"github.com/bwmarrin/snowflake"
 	"github.com/gofiber/fiber/v2"
+	"github.com/jackc/pgx/stdlib"
+	"github.com/jackc/pgx/v5"
+	"github.com/josethz00/build-your-own-s3/db"
 	"github.com/josethz00/build-your-own-s3/utils"
 )
 
@@ -15,6 +19,22 @@ type CreateBucketRequest struct {
 
 func main() {
 	app := fiber.New()
+
+	// This is a Go Context, it's used to run concurrent operations
+	ctx := context.Background()
+
+	// Use pgx with standard database/sql
+	config, err := pgx.ParseConfig("user:password@localhost:26257/database_name?sslmode=disable")
+	if err != nil {
+		fmt.Println("Failed to parse PGX config:", err)
+		return
+	}
+
+	// Create a *sql.DB object
+	sqlDB := stdlib.OpenDB(*config)
+	defer sqlDB.Close()
+
+	queries := db.New(sqlDB)
 
 	node, err := snowflake.NewNode(1)
 	if err != nil {
