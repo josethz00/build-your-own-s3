@@ -23,7 +23,7 @@ func main() {
 	ctx := context.Background()
 
 	// Use pgx with standard database/sql
-	dbconn, err := pgx.Connect(ctx, "user:password@localhost:26257/s3?sslmode=disable")
+	dbconn, err := pgx.Connect(ctx, "user=s3db host=localhost port=26257 dbname=s3db sslmode=disable")
 	if err != nil {
 		fmt.Println("Failed to parse PGX config:", err)
 		return
