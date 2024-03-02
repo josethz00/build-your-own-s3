@@ -1,11 +1,10 @@
-version: "1"
-packages:
-  - name: "db"
-    path: "./db"
+version: "2"
+sql:
+  - schema: "./initdb.sql"
     queries: "./queries.sql"
-    schema: "./initdb.sql"
     engine: "postgresql"
-    emit_json_tags: true
-    emit_prepared_queries: false
-    emit_interface: false
-    emit_exact_table_names: false
+    gen:
+      go:
+        package: "db"
+        out: "./db"
+        sql_package: "pgx/v5"
