@@ -46,6 +46,27 @@ services:
       - start
       - --insecure
       - --join=cockroach-1,cockroach-2,cockroach-3
+  db-init:
+    image: cockroachdb/cockroach:v21.2.0
+    volumes:
+      - ./initdb.sql:/initdb.sql
+    depends_on:
+      - cockroach-1
+      - cockroach-2
+      - cockroach-3
+    networks:
+      - cockroach-net
+    entrypoint: /bin/bash
+    command: >
+      -c "
+      until cockroach sql --insecure --host=cockroach-1 --execute='SELECT 1'; do
+        echo 'Waiting for CockroachDB to become ready...'
+        sleep 1
+      done;
+      echo 'CockroachDB is up - executing command';
+      cockroach sql --insecure --host=cockroach-1 -f /initdb.sql;
+      "
+    container_name: cockroach_db_init
 
 volumes:
   cockroach-1-data:
