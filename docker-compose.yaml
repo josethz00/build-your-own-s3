@@ -50,6 +50,7 @@ services:
     image: cockroachdb/cockroach:v21.2.0
     volumes:
       - ./initdb.sql:/initdb.sql
+      - ./tables.sql:/tables.sql
     depends_on:
       - cockroach-1
       - cockroach-2
@@ -65,6 +66,7 @@ services:
       done;
       echo 'CockroachDB is up - executing command';
       cockroach sql --insecure --host=cockroach-1 -f /initdb.sql;
+      cockroach sql --insecure --host=cockroach-1 -f /tables.sql;
       "
     container_name: cockroach_db_init
 

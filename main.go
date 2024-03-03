@@ -22,13 +22,14 @@ func main() {
 	// This is a Go Context, it's used to run concurrent/background operations
 	ctx := context.Background()
 
-	// Use pgx with standard database/sql
+	// Use pgx
 	dbconn, err := pgx.Connect(ctx, "user=s3db host=localhost port=26257 dbname=s3db sslmode=disable")
 	if err != nil {
 		fmt.Println("Failed to parse PGX config:", err)
 		return
 	}
 
+	// Close the connection before the main function ends
 	defer dbconn.Close(ctx)
 
 	queries := db.New(dbconn)
