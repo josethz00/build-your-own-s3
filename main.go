@@ -7,7 +7,7 @@ import (
 	"github.com/bwmarrin/snowflake"
 	"github.com/gofiber/fiber/v2"
 	"github.com/jackc/pgx/v5"
-	"github.com/josethz00/build-your-own-s3/db"
+	"github.com/josethz00/build-your-own-s3/internal/db"
 	"github.com/josethz00/build-your-own-s3/utils"
 )
 

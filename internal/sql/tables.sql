@@ -1,5 +1,3 @@
-USE s3db;
-
 CREATE TABLE IF NOT EXISTS buckets (
   id bigint NOT NULL,
   name varchar(255) NOT NULL,
