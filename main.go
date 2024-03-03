@@ -88,6 +88,12 @@ func main() {
 			})
 		}
 
+		if len(buckets) == 0 {
+			return c.Status(404).JSON(fiber.Map{
+				"message": "NO BUCKETS FOUND",
+			})
+		}
+
 		return c.Status(200).JSON(fiber.Map{
 			"buckets": buckets,
 		})
