@@ -1,6 +1,6 @@
 version: "2"
 sql:
-  - schema: "./initdb.sql"
+  - schema: "./tables.sql"
     queries: "./queries.sql"
     engine: "postgresql"
     gen:
