@@ -3,8 +3,8 @@ CREATE TABLE IF NOT EXISTS buckets (
   name varchar(255) NOT NULL,
   public boolean NOT NULL DEFAULT false,
   description text,
-  created_at TIMESTAMP NOT NULL,
-  updated_at TIMESTAMP NOT NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (id)
 );
 
@@ -14,8 +14,8 @@ CREATE TABLE IF NOT EXISTS files (
   name varchar(255) NOT NULL UNIQUE,
   size bigint NOT NULL,
   mime_type varchar(255) NOT NULL,
-  created_at TIMESTAMP NOT NULL,
-  updated_at TIMESTAMP NOT NULL,
+  created_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   PRIMARY KEY (id),
   CONSTRAINT files_ibfk_1 FOREIGN KEY (bucket_id) REFERENCES buckets (id) ON DELETE CASCADE ON UPDATE CASCADE
 );
